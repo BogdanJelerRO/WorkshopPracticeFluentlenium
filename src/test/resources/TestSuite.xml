@@ -2,10 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite verbose="1" name="TestSuite" allow-return-values="true">
-	<test name="Client tests">
+	<test name="Workshop tests">
 		<classes>
-			<class name="com.elektrobit.sota.dashboard.LoginPageTestSuites" />
-			<class name="com.elektrobit.sota.dashboard.SOTAPageTestSuites" />
+			<class name="com.workshop.VerifyTest" />
 		</classes>
 	</test>
 </suite>
