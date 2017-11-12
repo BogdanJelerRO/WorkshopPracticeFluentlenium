@@ -7,12 +7,9 @@ dependencies {
 	testCompile ("com.jayway.awaitility:awaitility:1.7.0")
     testCompile ("com.google.guava:guava:11.0.2")
     testCompile ("org.fluentlenium:fluentlenium-assertj:3.1.0")
+    testCompile  ("org.assertj:assertj-core:3.8.0")
     testCompile ("org.fluentlenium:fluentlenium-testng:3.1.0")
-    testCompile ("org.seleniumhq.selenium:selenium-java:3.0.1")
-    testCompile ("org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0")
-    testCompile ("org.eclipse.jetty.websocket:websocket-server:9.4.0.M1")
-    testCompile ("org.eclipse.jetty.websocket:websocket-client:9.4.0.M1")
-    testCompile ("org.eclipse.jetty.websocket:websocket-api:9.4.0.M1") 
+    testCompile ("org.seleniumhq.selenium:selenium-java:3.5.3") 
 }
 
 repositories {
