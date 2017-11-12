@@ -11,24 +11,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
 @FluentConfiguration(screenshotMode = TriggerMode.AUTOMATIC_ON_FAIL, screenshotPath = "bin//Screenshots//", driverLifecycle = DriverLifecycle.CLASS)
 
 public class BaseTestNg extends FluentTestNg {
-	
-	 @BeforeSuite
-	 @Override
-     public WebDriver newWebDriver() {
-		 System.setProperty("webdriver.gecko.driver", "src//test//resources//geckodriver.exe");
-        
-         WebDriver driver = new FirefoxDriver();
-         driver.manage().window().maximize();
-         return driver;
-     }
+
+	@BeforeSuite
+	@Override
+	public WebDriver newWebDriver() {
+		System.setProperty("webdriver.gecko.driver", "src//test//resources//geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		return driver;
+	}
 
 	// region Helper Methods
 	public void clickOnElementByLinkText(String giveLinkText) {
