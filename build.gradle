@@ -6,10 +6,12 @@ dependencies {
     testCompile ("junit:junit:4.12")
 	testCompile ("com.jayway.awaitility:awaitility:1.7.0")
     testCompile ("com.google.guava:guava:11.0.2")
-    testCompile ("org.fluentlenium:fluentlenium-assertj:3.1.0")
+    testCompile ("org.fluentlenium:fluentlenium-assertj:3.4.1")
     testCompile  ("org.assertj:assertj-core:3.8.0")
-    testCompile ("org.fluentlenium:fluentlenium-testng:3.1.0")
+    testCompile ("org.fluentlenium:fluentlenium-testng:3.4.1")
+    testCompile group: 'org.fluentlenium', name: 'fluentlenium-core', version: '3.4.1'
     testCompile ("org.seleniumhq.selenium:selenium-java:3.5.3") 
+    testCompile ("org.testng:testng:6.13.1")
 }
 
 repositories {

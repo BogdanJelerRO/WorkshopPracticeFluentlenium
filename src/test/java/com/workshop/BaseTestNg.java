@@ -1,5 +1,6 @@
 package com.workshop;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.fluentlenium.adapter.testng.FluentTestNg;
@@ -8,14 +9,15 @@ import org.fluentlenium.configuration.ConfigurationProperties.TriggerMode;
 import org.fluentlenium.configuration.FluentConfiguration;
 import org.fluentlenium.core.domain.FluentWebElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-@FluentConfiguration(screenshotMode = TriggerMode.AUTOMATIC_ON_FAIL, screenshotPath = "bin//Screenshots//", driverLifecycle = DriverLifecycle.CLASS)
-
+@FluentConfiguration(screenshotMode = TriggerMode.AUTOMATIC_ON_FAIL, screenshotPath = "bin//Screenshots//", driverLifecycle = DriverLifecycle.JVM)
 public class BaseTestNg extends FluentTestNg {
 
 	@BeforeSuite
@@ -27,17 +29,27 @@ public class BaseTestNg extends FluentTestNg {
 		return driver;
 	}
 
+	@AfterSuite
+	private void killDriver() throws Exception {
+		String[] cmd = { "C:\\WINDOWS\\system32\\cmd.exe", "/c", "taskkill /F /IM geckodriver.exe /T" };
+
+		Runtime runtime = Runtime.getRuntime();
+
+		Process p = runtime.exec(cmd);
+		p.waitFor(2, TimeUnit.SECONDS);
+		p.destroyForcibly();
+	}
+
 	// region Helper Methods
 	public void clickOnElementByLinkText(String giveLinkText) {
 		await().atMost(10, TimeUnit.SECONDS).until($(By.linkText(giveLinkText))).clickable();
-
 		$(By.linkText(giveLinkText)).click();
 	}
 
 	public void clickOnElementFunctional(FluentWebElement expectElement) {
 		// the method that works for chrome
 		await().atMost(10, TimeUnit.SECONDS).until(expectElement).clickable();
-		((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", expectElement);
+		expectElement.click();
 	}
 
 	public void doubleClickOnDropdown(FluentWebElement expectElement) {
@@ -45,7 +57,7 @@ public class BaseTestNg extends FluentTestNg {
 		expectElement.doubleClick();
 	}
 
-	public void enterTextAndSelectInDropdown(FluentWebElement expectElement, String giveText) {
+	public void enterTextAndPressEnter(FluentWebElement expectElement, String giveText) {
 		await().explicitlyFor(5, TimeUnit.SECONDS);
 		expectElement.fill().with(giveText);
 		expectElement.keyboard().sendKeys(Keys.ENTER);
