@@ -1,6 +1,5 @@
 package com.workshop;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.fluentlenium.adapter.testng.FluentTestNg;
@@ -8,12 +7,8 @@ import org.fluentlenium.configuration.ConfigurationProperties.DriverLifecycle;
 import org.fluentlenium.configuration.ConfigurationProperties.TriggerMode;
 import org.fluentlenium.configuration.FluentConfiguration;
 import org.fluentlenium.core.domain.FluentWebElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -41,26 +36,28 @@ public class BaseTestNg extends FluentTestNg {
 	}
 
 	// region Helper Methods
-	public void clickOnElementByLinkText(String giveLinkText) {
-		await().atMost(10, TimeUnit.SECONDS).until($(By.linkText(giveLinkText))).clickable();
-		$(By.linkText(giveLinkText)).click();
-	}
+	// public void clickOnElementByLinkText(String giveLinkText) {
+	// await().atMost(10,
+	// TimeUnit.SECONDS).until($(By.linkText(giveLinkText))).clickable();
+	// $(By.linkText(giveLinkText)).click();
+	// }
 
-	public void clickOnElementFunctional(FluentWebElement expectElement) {
-		// the method that works for chrome
+	// public void doubleClickOnDropdown(FluentWebElement expectElement) {
+	// await().atMost(10, TimeUnit.SECONDS).until(expectElement).clickable();
+	// expectElement.doubleClick();
+	// }
+
+	public void clickOnElement(FluentWebElement expectElement) {
 		await().atMost(10, TimeUnit.SECONDS).until(expectElement).clickable();
 		expectElement.click();
 	}
 
-	public void doubleClickOnDropdown(FluentWebElement expectElement) {
-		await().atMost(10, TimeUnit.SECONDS).until(expectElement).clickable();
-		expectElement.doubleClick();
-	}
-
 	public void enterTextAndPressEnter(FluentWebElement expectElement, String giveText) {
-		await().explicitlyFor(5, TimeUnit.SECONDS);
+		await().atMost(10, TimeUnit.SECONDS).until(expectElement).clickable();
+
+		expectElement.clear();
 		expectElement.fill().with(giveText);
-		expectElement.keyboard().sendKeys(Keys.ENTER);
+		// expectElement.keyboard().sendKeys(Keys.ENTER);
 	}
 
 	// endregion
